@@ -6,13 +6,7 @@ This is a study report of book named Effective C++, 55 Specific Ways to Improve 
 
 ## Study Report
 
-### View C++ as a federation of languages
+### [Accustoming Yourself to C++](chapter01.md)
 
-There are four categrages of C++.
-
-1. C. 
-1. Object-Oriented C++
-1. Template C++
-1. STL
 
 
