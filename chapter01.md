@@ -1,4 +1,4 @@
-## View C++ as a federation of languages
+## 1. View C++ as a federation of languages
 
 There are four categrages of C++.
 
@@ -6,3 +6,6 @@ There are four categrages of C++.
 1. Object-Oriented C++
 1. Template C++
 1. STL
+
+## 2. Prefer consts, enums, and inlines to `#define`
+
