@@ -102,6 +102,7 @@ public:
 1. const_cast. const_cast makes it possible to form a reference or pointer to non-const type that is actually referring to a const object or a reference or pointer to non-volatile type that is actually referring to a volatile object.
 
 Normally, non-const function will call a const function with the same logic.
+
 ```
     const std::string& getConstStr() const {
 		return this->strVal;
@@ -115,5 +116,44 @@ Normally, non-const function will call a const function with the same logic.
 		return const_cast<std::string&>(this->getConstStr());
 	}
 ```
+
+## 4. Make sure that objects are initiallised before they are used.
+
+1. The order of the data initalisation. The base classes initialised before derived classes. And within a class, data members are initialised in the order in which they are decleared.
+
+```
+static int g_count = 0;
+class InitDemo {
+public:
+	InitDemo(): a(g_count++),
+				b(g_count++),
+				c(g_count++),
+				x(g_count++),
+				y(g_count++),
+				z(g_count++){
+		std::cout << x << std::endl;
+		std::cout << y << std::endl;
+		std::cout << z << std::endl;
+		std::cout << a << std::endl;
+		std::cout << b << std::endl;
+		std::cout << c << std::endl;
+
+		std::cout << "ptr x = " << &x << std::endl;
+		std::cout << "ptr a = " << &a << std::endl;
+		std::cout << "sizeof int" << sizeof(a) << std::endl;
+	}
+private:
+	int x;
+	int y;
+	int z;
+	int a;
+	int b;
+	int c;
+};
+```
+
+2. Avoid initialisation order problems across translation units by replacing non-local static objects with local static objects.
+Or using singleton.
+
 
 

@@ -68,6 +68,34 @@ public:
 	}
 };
 
+static int g_count = 0;
+class InitDemo {
+public:
+	InitDemo(): a(g_count++),
+				b(g_count++),
+				c(g_count++),
+				x(g_count++),
+				y(g_count++),
+				z(g_count++){
+		std::cout << x << std::endl;
+		std::cout << y << std::endl;
+		std::cout << z << std::endl;
+		std::cout << a << std::endl;
+		std::cout << b << std::endl;
+		std::cout << c << std::endl;
+
+		std::cout << "ptr x = " << &x << std::endl;
+		std::cout << "ptr a = " << &a << std::endl;
+		std::cout << "sizeof int" << sizeof(a) << std::endl;
+	}
+private:
+	int x;
+	int y;
+	int z;
+	int a;
+	int b;
+	int c;
+};
 int main()
 {
 	std::cout << k_app_name << std::endl;
@@ -125,6 +153,8 @@ int main()
 	// ref_const_str[0]='x';
 	ref_str[0] = 'x';
 	std::cout << ref_str << std::endl;
+
+	InitDemo demo;
 
     return 0;
 }
