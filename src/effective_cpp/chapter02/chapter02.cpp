@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
 
 class Uncopyable {
 protected:
@@ -56,6 +57,29 @@ private:
 	DISALLOW_COPY_AND_ASSIGN(NoCopyC);
 };
 
+class TimeKeeper {
+public:
+	TimeKeeper() {
+	};
+	virtual ~TimeKeeper() {
+		std::cout << "Call Destructor in TimeKeeper" << std::endl;
+	};
+};
+
+
+
+class AtomicClock : public TimeKeeper {
+public:
+	AtomicClock() {};
+	virtual ~AtomicClock() {
+		std::cout << "Call Destructor in AtomicClock" << std::endl;
+	};
+};
+
+TimeKeeper* getKeeper() {
+	return static_cast<TimeKeeper*>(new AtomicClock());
+}
+
 int main()
 {
 	NoCopy a(100);
@@ -73,5 +97,10 @@ int main()
 	// error C2248: 'NoCopyC::NoCopyC': cannot access private member declared in class 'NoCopyC'
 	//NoCopyC bC(aC);
 
+	TimeKeeper* keeper = getKeeper();
+	delete keeper;
+	int base_size = sizeof(TimeKeeper);
+	int dirived_size = sizeof(AtomicClock);
+	// all 8 bytes
 	return 0;
 }

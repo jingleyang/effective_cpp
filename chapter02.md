@@ -90,3 +90,49 @@ int main()
 	return 0;
 }
 ```
+
+## Declare destructors virtual in polymorphic base classes.
+
+```
+class TimeKeeper {
+public:
+	TimeKeeper() {
+	};
+	virtual ~TimeKeeper() {
+		std::cout << "Call Destructor in TimeKeeper" << std::endl;
+	};
+};
+
+
+
+class AtomicClock : public TimeKeeper {
+public:
+	AtomicClock() {};
+	virtual ~AtomicClock() {
+		std::cout << "Call Destructor in AtomicClock" << std::endl;
+	};
+};
+
+TimeKeeper* getKeeper() {
+	return static_cast<TimeKeeper*>(new AtomicClock());
+}
+
+TimeKeeper* keeper = getKeeper();
+delete keeper;
+
+// The output will be
+//
+// Call Destructor in AtomicClock
+// Call Destructor in TimeKeeper
+
+```
+
+## Prevent exceptions from leaving destructors
+
+Destructors shold never emit exceptions.
+The destructor should catch any exceptions then
+1. swallow them
+2. terminate the program.
+
+It is better to provide a regular function that be able to react to exceptions. 
+
