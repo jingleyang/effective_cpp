@@ -4,6 +4,12 @@
 #include "stdafx.h"
 #include <iostream>
 
+// patch test
+int add(int a, int b){
+	return a+b;
+}
+// patch test end
+
 class Uncopyable {
 protected:
 	Uncopyable() {}
